@@ -1,16 +1,139 @@
-# React + Vite
+# 📝 Todo App (React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+This is a simple **Todo App** I built while learning **React**. I created this project to practice real‑world React concepts like **state management**, **props**, **hooks**, and **localStorage**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+I’ve kept the code clean and easy to understand, especially for beginners who are just starting with React.
 
-## React Compiler
+---
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+## 🚀 Features
 
-## Expanding the ESLint configuration
+* Add a new todo
+* Delete a todo
+* Mark todo as completed / uncompleted
+* Clear all todos at once
+* Todos are saved in **localStorage** (they stay even after refresh)
+* Shows current date
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tech Stack
+
+* React (useState, useEffect)
+* Vite
+* JavaScript (ES6)
+* CSS
+* Browser LocalStorage
+
+---
+
+## 📁 Project Structure
+
+```bash
+src/
+├─ Todo.jsx          # Main component & logic
+├─ TodoForm.jsx      # Todo input form
+├─ TodoList.jsx      # Single todo item UI
+├─ TodoDate.jsx      # Date display
+├─ localStorage.js   # LocalStorage helper functions
+├─ index.css         # Styling
+└─ main.jsx
+```
+
+---
+
+## ▶️ How to Run the Project
+
+```bash
+# Clone the repository
+git clone https://github.com/Abdulrkhan98/Todo-app.git
+
+# Go into the project folder
+cd Todo-app
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```
+
+---
+
+## 💾 LocalStorage Logic
+
+To keep the code clean, I moved the localStorage logic into a separate file.
+
+### `localStorage.js`
+
+```js
+const todoKey = "reactTodo";
+
+export const getLocalTodos = () => {
+  const rawTodos = localStorage.getItem(todoKey);
+  if (!rawTodos) return [];
+  return JSON.parse(rawTodos);
+};
+
+export const setLocalTodos = (task) => {
+  localStorage.setItem(todoKey, JSON.stringify(task));
+};
+```
+
+* `getLocalTodos()` → loads saved todos when the app starts
+* `setLocalTodos(task)` → saves todos whenever todos change
+
+---
+
+## 🧠 Core React Logic
+
+```js
+const [task, setTask] = useState(getLocalTodos);
+
+useEffect(() => {
+  setLocalTodos(task);
+}, [task]);
+```
+
+This ensures:
+
+* Todos load only once on first render
+* Any update automatically syncs with localStorage
+
+---
+
+## 🧪 Example Todo Object
+
+```js
+{
+  id: 1,
+  content: "Learn React",
+  checked: false
+}
+```
+
+---
+
+## ✨ What I Learned
+
+* How to manage state in React
+* How `useEffect` works in real projects
+* How to persist data using localStorage
+* Importance of separating logic and UI
+* Writing cleaner and reusable code
+
+---
+
+## 👨‍💻 Author
+
+**Abdul Rahman Khan**
+React Learner & Frontend Developer
+
+---
+
+## ❤️ Final Words
+
+This project is part of my React learning journey. Feel free to use it, improve it, or add new features. If you’re learning React too — keep building small projects like this, it really helps.
+
+Happy coding 🚀
